@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateFolderDto } from './dto/create-folder.dto';
 import { UpdateFolderDto } from './dto/update-folder.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -7,23 +7,49 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class FoldersService {
   constructor(private readonly prismaS:PrismaService){}
   
-  create(createFolderDto: CreateFolderDto) {
-    return 'This action adds a new folder';
+  async create(createFolderDto: CreateFolderDto) {
+    await this.verifyIfExisitsFolderByName(createFolderDto.name);
+    return this.prismaS.folder.create({
+      data:createFolderDto
+    });
   }
 
   findAll() {
-    return `This action returns all folders`;
+    return this.prismaS.folder.findMany();
   }
 
   findOne(id: number) {
     return `This action returns a #${id} folder`;
   }
 
-  update(id: number, updateFolderDto: UpdateFolderDto) {
-    return `This action updates a #${id} folder`;
+  async update(id: number, updateFolderDto: UpdateFolderDto) {
+    await this.verifyIfExisitsFolderById(id);
+    await this.verifyIfExisitsFolderByName(updateFolderDto.name);
+    return this.prismaS.folder.update({
+      data:{
+        name:updateFolderDto.name
+      },
+      where:{
+        id
+      }
+    });
   }
 
   remove(id: number) {
     return `This action removes a #${id} folder`;
+  }
+
+  async verifyIfExisitsFolderByName(name:string){
+    const find = await this.prismaS.folder.count({
+      where:{name}
+    });
+    if(find) throw new ConflictException('Pasta já existente');
+  }
+
+  async verifyIfExisitsFolderById(id:number){
+    const find = await this.prismaS.folder.count({
+      where:{id}
+    });
+    if(!find) throw new NotFoundException('Pasta não existente');
   }
 }
