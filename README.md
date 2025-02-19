@@ -5,7 +5,8 @@ CRUD FOLDERS
  - update [x]
  - delete []
 
-CRUD EXPANSE TYPE - create []
+CRUD EXPANSE TYPE
+ - create []
  - get []
  - getall []
  - update []
