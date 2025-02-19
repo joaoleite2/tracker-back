@@ -15,7 +15,9 @@ export class FoldersService {
   }
 
   findAll() {
-    return this.prismaS.folder.findMany();
+    return this.prismaS.folder.findMany({
+      include:{trackerType:true}
+    });
   }
 
   findOne(id: number) {
