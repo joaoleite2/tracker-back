@@ -6,8 +6,8 @@ CRUD FOLDERS
  - delete []
 
 CRUD EXPANSE TYPE
- - create []
- - get []
- - getall []
- - update []
- - delete []
+ - create [x]
+ - get [x]
+ - getall [x]
+ - update [x]
+ - delete [x]
