@@ -9,6 +9,7 @@ export class FoldersService {
   
   async create(createFolderDto: CreateFolderDto) {
     await this.verifyIfExisitsFolderByName(createFolderDto.name);
+    console.log('pasta com o nome ', createFolderDto.name, ', criada');
     return this.prismaS.folder.create({
       data:createFolderDto
     });
@@ -16,7 +17,7 @@ export class FoldersService {
 
   findAll() {
     return this.prismaS.folder.findMany({
-      include:{trackerType:true}
+      include:{files:true}
     });
   }
 

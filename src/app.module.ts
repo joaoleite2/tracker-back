@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { FoldersModule } from './folders/folders.module';
-import { TrackerTypeModule } from './tracker-type/tracker-type.module';
+import { FileModule } from './file/file.module';
 
 @Module({
-  imports: [FoldersModule, TrackerTypeModule],
+  imports: [FoldersModule, FileModule],
   controllers: [],
   providers: [],
 })
