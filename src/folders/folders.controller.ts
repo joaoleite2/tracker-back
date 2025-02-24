@@ -28,7 +28,7 @@ export class FoldersController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.foldersService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.foldersService.remove(id);
   }
 }

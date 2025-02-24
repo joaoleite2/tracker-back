@@ -38,8 +38,14 @@ export class FoldersService {
     });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} folder`;
+  async remove(id: number) {
+    await this.verifyIfExisitsFolderById(id);
+    await this.prismaS.file.deleteMany({
+      where:{folderId:id}
+    });
+    return this.prismaS.folder.delete({
+      where:{id}
+    })
   }
 
   async verifyIfExisitsFolderByName(name:string){

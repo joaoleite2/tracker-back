@@ -3,7 +3,7 @@ CRUD FOLDERS
  - get []
  - getall [x]
  - update [x]
- - delete []
+ - delete [x]
 
 CRUD FILES
  - create [x]
